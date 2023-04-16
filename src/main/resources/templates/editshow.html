@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Edit Show</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style = "padding: 10px">
+
+	<h1>Edit Show</h1>
+	
+	<form method = "post" action = "#" th:action = "@{/updateshow/{id}}" th:object = "${show}">
+		<input type = "hidden" th:field = "*{id}" class = "form-control" />
+		
+		<div class = "col-3">
+			<label for = "title">Title</label><br>
+				<input class = "form-control" type = "text" th:field = "*{title}" />
+		</div><br>
+		<div class = "col-3">
+			<label for = "season">Season</label><br>
+				<input class = "form-control" type = "number" th:field = "*{season}" />
+		</div><br>
+		
+		<div class = "col-3">
+			<label for = "genrelist">Genre</label><br>
+				<select id = "genrelist" th:field = ${show.genre} class = "form-control">
+					<option th:each = "genre : ${genres}" th:value = "${genre.genreid}" th:text = "${genre.name}"></option>
+				</select>
+		</div><br>
+		
+		<div class = "col-3">
+			<label for = "statuslist">Status</label><br>
+				<select id = "statuslist" th:field = ${show.status} class = "form-control">
+					<option th:each = "status : ${statuses}" th:value = "${status.statusid}" th:text = "${status.name}"></option>
+				</select>
+		</div>
+		
+		<div style = "clear: both; display: block; height: 10px;"></div>
+		<input type = "submit" value = "Submit" /> <input type = "reset" value = "Reset" />
+	</form>
+	
+	<div style = "clear: both; display: block; height: 10px;"></div>
+	<div><a href = "/showlist">Back to show listing</a></div>
+</body>
+</html>

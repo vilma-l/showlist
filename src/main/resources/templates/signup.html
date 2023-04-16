@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Sign Up</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style = "padding: 10px">
+
+	<h1>Sign Up</h1>
+	
+	<form th:object = "${signupform}" th:action = "@{/saveuser}" action = "#" method = "post">
+		<div class = "col-3">
+			<label for = "username">Username:</label><br>
+			<input class = "form-control" type = "text" th:field = "*{username}" />
+			<span th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}">Username Error</span>
+		</div><br>
+		<div class = "col-3">
+			<label for = "password">Password:</label><br>
+			<input class = "form-control" type = "password" th:field = "*{password}" />
+			<span th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}">Password Error</span>
+		</div><br>
+		<div class = "col-3">
+			<label for = "passwordCheck">Re-type password:</label><br>
+			<input class = "form-control" type = "password" th:field = "*{passwordCheck}" />
+			<span th:if = "${#fields.hasErrors('passwordCheck')}" th:errors = "*{passwordCheck}">Password Match Error</span>
+		</div><br>
+		
+		<div style = "clear: both; display: block; height: 10px;"></div>
+		<input type = "submit" value = "Sign Up"class = "btn btn-primary" />
+	</form>
+	
+	<div style = "clear: both; display: block; height: 10px;"></div>
+	<div><a th:href = "@{/login}">Back to Login Page</a></div>
+
+</body>
+</html>

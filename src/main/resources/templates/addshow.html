@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Add New Show</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style = "padding: 10px">
+
+	<h1>Add New Show</h1>
+	
+	<form method = "post" action = "#" th:action = "@{/saveshow}" th:object = "${show}">
+		<div class = "col-3">
+			<label for = "title">Title</label><br>
+			<input class = "form-control" type = "text" th:field = "${show.title}" />
+			<span th:if = "${#fields.hasErrors('title')}" th:errors = "*{title}">Error</span>
+		</div><br>
+		<div class = "col-3">
+			<label for = "season">Season</label><br>
+			<input class = "form-control" type = "number" th:field = "${show.season}" />
+			<span th:if = "${#fields.hasErrors('season')}" th:errors = "*{season}">Error</span>
+		</div><br>
+		
+		<div class = "col-3">
+			<label for = "genrelist">Genre</label><br>
+				<select id = "genrelist" th:field = *{genre} class = "form-control">
+					<option th:each = "genre : ${genres}" th:value = "${genre.genreid}" th:text = "${genre.name}"></option>
+				</select>
+		</div><br>
+		
+		<div class = "col-3">	
+			<label for = "statuslist">Status</label><br>
+				<select id = "statuslist" th:field = *{status} class = "form-control">
+					<option th:each = "status : ${statuses}" th:value = "${status.statusid}" th:text = "${status.name}"></option>
+				</select>
+		</div>
+		
+		<div style = "clear: both; display: block; height: 10px;"></div>
+		<input type = "submit" value = "Submit" /> <input type = "reset" value = "Reset" />
+	</form>
+	
+		<div style = "clear: both; display: block; height: 10px;"></div>
+		<div><a href = "/showlist">Back to Show Listing</a></div>
+</body>
+</html>

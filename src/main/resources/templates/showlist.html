@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Shows</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style = "padding: 10px">
+
+	<h1>Shows</h1>
+	
+	<div class="col-md-4" style="padding:20px 0">
+		<h3>Welcome <span sec:authentication="name"></span></h3>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+		</form>
+	</div>
+	
+	<table class = "table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Season</th>
+			<th>Genre</th>
+			<th>Status</th>
+			<th></th>
+			<th sec:authorize = "hasAuthority('ADMIN')"></th>
+		</tr>
+		
+		<tr th:each = "show : ${shows}">
+			<td th:text = "${show.id}">id</td>
+			<td th:text = "${show.title}">title</td>
+			<td th:text = "${show.season}">season</td>
+			<td th:text = "${show.genre.name}">genre</td>
+			<td th:text = "${show.status.name}">status</td>
+			<td sec:authorize = "hasAuthority('ADMIN')"><a th:href = "@{editshow/{id} (id = ${show.id})}" class = "btn btn-secondary">Edit</a></td>
+			<td sec:authorize = "hasAuthority('ADMIN')"><a th:href = "@{deleteshow/{id} (id = ${show.id})}" class = "btn btn-danger">Delete</a></td>
+		</tr>
+	</table>
+	
+	<div><a href = "/addshow" class = "btn btn-success">Add New Show</a> <a href = "/genrelist" class = "btn btn-info">Genre Listing</a></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Genres</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style = "padding: 10px">
+
+	<h1>Genres</h1>
+	
+	<table class = "table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th></th>
+			<th sec:authorize = "hasAuthority('ADMIN')"></th>
+		</tr>
+		
+		<tr th:each = "genre : ${genres}">
+			<td th:text = "${genre.genreid}">id</td>
+			<td th:text = "${genre.name}">name</td>
+			<td sec:authorize = "hasAuthority('ADMIN')"><a th:href = "@{editgenre/{id} (id = ${genre.genreid})}" class = "btn btn-secondary">Edit</a></td>
+			<td sec:authorize = "hasAuthority('ADMIN')"><a th:href = "@{deletegenre/{id} (id = ${genre.genreid})}" class = "btn btn-danger">Delete</a></td>
+		</tr>
+	</table>
+	
+	<div><a href = "/addgenre" class = "btn btn-success">Add New Genre</a> <a href = "/showlist" class = "btn btn-info">Show Listing</a></div>
+</body>
+</html>
