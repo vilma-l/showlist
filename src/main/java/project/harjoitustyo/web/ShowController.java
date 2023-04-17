@@ -60,6 +60,8 @@ public class ShowController {
 	public String saveShow(@Valid @ModelAttribute("show") Show show, BindingResult bindingResult, Model model) {
 		
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("genres", genreRepository.findAll());
+			model.addAttribute("statuses", statusRepository.findAll());
 			return "addshow";
 		} else {
 			showRepository.save(show); //tallennetaan uusi sarja tietokantaan, jos id-arvo on 0 tai null
